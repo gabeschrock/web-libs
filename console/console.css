@@ -1,0 +1,35 @@
+.console-type-string {
+    color: #008000;
+}
+
+.console-type-number, .console-type-bigint {
+    color: #a050c0;
+}
+
+.console-type-boolean, .console-type-object {
+    color: #901010;
+}
+
+.console-type-symbol, .console-type-function {
+    color: #808080;
+}
+
+.console-type-undefined, .console-type-object {
+    color: #606060;
+    font-style: italic;
+}
+
+.console-clickable {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.console-indent {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 2em;
+}
