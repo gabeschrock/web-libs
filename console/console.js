@@ -2,12 +2,6 @@ import { dataToElement } from "./toelement.js";
 
 let consoleElement;
 
-export function useAll() {
-    window.ConsoleInitError = ConsoleInitError;
-    window.init = init;
-    window.initAsChild = initAsChild;
-}
-
 export class ConsoleInitError extends Error {
     static name = "ConsoleInitError";
     

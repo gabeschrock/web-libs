@@ -1,4 +1,4 @@
-import { checkInstance } from "./helpers.js";
+// import { checkInstance } from "./helpers.js";
 
 let create = document.createElement.bind(document);
 

@@ -1,4 +1,4 @@
-import { init } from "/console/console.js";
+import { init } from "./console.js";
 
 init(document.getElementById("console"));
 

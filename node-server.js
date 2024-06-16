@@ -20,10 +20,11 @@ function promise(func, ...args) {
 }
 
 const server = http.createServer(async function (req, res) {
-    // console.log(`${req.method} ${req.url}`)
+    // uncomment for request logs
+    // console.log(`${req.method} ${req.url}`);
+
     let path = `./${req.url}`;
-    let stat;
-    let data;
+    let stat, data;
     try {
         stat = await promise(fs.stat, path);
         if (!stat.isFile()) {
@@ -31,7 +32,6 @@ const server = http.createServer(async function (req, res) {
         }
         data = await promise(fs.readFile, path);
     } catch(err) {
-        // console.error(err.code);
         if (!(err.code in errors)) {
             res.writeHead(500, {"Content-Type": "text/plain"});
             res.end("Unknown error");
