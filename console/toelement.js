@@ -25,7 +25,7 @@ function protoText(object) {
     if (proto != null) {
         return proto.constructor.name;
     }
-    return "[null prototype]"
+    return "[null prototype]";
 }
 
 function objectToElement(object, name) {

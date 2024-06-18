@@ -1,5 +1,13 @@
 let wrapped = new Map();
 
+function protoText(object) {
+    let proto = Object.getPrototypeOf(object);
+    if (proto != null) {
+        return proto.constructor.name;
+    }
+    return "`null`";
+}
+
 class DefaultWrapper {
     #value;
 
@@ -9,6 +17,16 @@ class DefaultWrapper {
 
     get value() {
         return this.#value;
+    }
+
+    set value(newValue) {
+        const protoOf = Object.getPrototypeOf;
+        if (protoOf(newValue) != protoOf(this.#value)) {
+            throw new TypeError(
+                `not same prototype: ${protoText(this.#value)}, ${protoText(newValue)}`
+            );
+        }
+        this.#value = newValue;
     }
 }
 
@@ -20,6 +38,7 @@ export function addWrapper(proto, props) {
         return false;
     }
     class Wrapper extends DefaultWrapper {
+        static type = proto;
         /*
         constructor(value) {
             super(value);
