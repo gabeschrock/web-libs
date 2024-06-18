@@ -22,9 +22,22 @@ log({
         foo: 10
     }
 });
+log(function heyLookItsAFunction() {})
 log("Circular objects are fine...")
-let circular = {
+let object = {
     message: "Have fun expanding this!"
 };
-circular.self = circular;
-log(circular);
+object.self = object;
+log(object);
+log("Objects will update upon expandi!ng.")
+object = {
+    counter: 0,
+    get clickMe() {
+        this.counter++;
+        return "try collapsing and expanding this object"
+    },
+    get clickMeToo() {
+        throw new Error("Whoops!");
+    }
+}
+log(object);

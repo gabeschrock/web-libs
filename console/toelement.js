@@ -2,7 +2,9 @@
 
 let create = document.createElement.bind(document);
 
-function htmlElementError() { return new TypeError("not an HTML element"); }
+function htmlElementError() {
+    return new TypeError("not an HTML element");
+}
 
 function br() {
     return create("br");
@@ -27,7 +29,14 @@ function protoText(object) {
 }
 
 function objectToElement(object, name) {
-    function onclick(_event) {
+    function onclick() {
+        function onclick() {
+            let elem = dataToElement(object);
+            self.replaceWith(elem);
+            elem.insertAdjacentElement("afterend", br());
+        }
+        name.addEventListener("click", onclick);
+        
         let self = span();
         let proto = Object.getPrototypeOf(object)
 
@@ -35,7 +44,6 @@ function objectToElement(object, name) {
         block.classList.add("console-indent");
         
         self.appendChild(name);
-        self.appendChild(text(" {"));
         self.appendChild(block);
 
         for (const key of Object.getOwnPropertyNames(object)) {
@@ -44,13 +52,20 @@ function objectToElement(object, name) {
 
             if ("get" in desc) {
                 function onclick() {
-                    this.replaceWith(dataToElement(getter.call(this)));
+                    let expanded;
+                    try {
+                        expanded = dataToElement(getter.apply(object));
+                    } catch (err) {
+                        expanded = span(err);
+                        expanded.classList.add("console-getter-error");
+                    }
+                    elem.replaceWith(expanded);
                 }
 
                 let getter = desc.get;
-                let elem = span("[...]");
+                let elem = span("(...)");
                 elem.classList.add("console-clickable");
-                elem.addEventListener("click", onclick.bind(elem));
+                elem.addEventListener("click", onclick);
                 
                 block.appendChild(elem);
                 block.appendChild(br());
@@ -62,23 +77,25 @@ function objectToElement(object, name) {
         }
         block.appendChild(text("[[prototype]]: "));
         block.appendChild(dataToElement(proto));
-
-        self.appendChild(text("}"));
-
-        this.replaceWith(self);
+        
+        elem.replaceWith(self);
+        
+        let next = self.nextElementSibling;
+        if (next != null) {
+            self.parentElement.removeChild(next);
+        }
     }
 
     let elem = span();
     elem.appendChild(name);
-    elem.appendChild(text(" {...}"))
     elem.classList.add("console-clickable");
-    elem.addEventListener("click", onclick.bind(elem));
+    elem.addEventListener("click", onclick);
     return elem;
 }
 
 export function dataToElement(data) {
     let elem;
-    let type = typeof data;
+    let type = data == Function.prototype ? "object" : typeof data;
     switch (type) {
         case "string":
             data = data
@@ -97,13 +114,12 @@ export function dataToElement(data) {
             break;
         case "object":
             if (data !== null) {
-                return objectToElement(data, text(protoText(data)));
+                return objectToElement(data, span(protoText(data)));
             }
             elem = span("null");
             break;
         case "function":
             elem = span(`f ${data.name}()`);
-            elem.style.fontStyle = "italic";
             elem.classList.add(`console-type-function`);
             return objectToElement(data, elem);
     }
