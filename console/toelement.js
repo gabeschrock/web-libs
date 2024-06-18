@@ -35,6 +35,7 @@ function objectToElement(object, name) {
             self.replaceWith(elem);
             elem.insertAdjacentElement("afterend", br());
         }
+        name.classList.add("console-clickable");
         name.addEventListener("click", onclick);
         
         let self = span();

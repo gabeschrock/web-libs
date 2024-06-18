@@ -10,11 +10,16 @@ Well, there's only one at the moment, but it *will* be a collection.
 
 ## Console - `/console`
 ```javascript
-import { init } from "./path/to/web-libs/console/console.js"
-init(document.getElementById("your-console-id"))
+import { init } from "./path/to/web-libs/console/console.js";
+init(document.getElementById("your-console-id"));
 ```
 ```javascript
-import { initAsChild } from "./path/to/web-libs/console/console.js"
+import { initAsChild } from "./path/to/web-libs/console/console.js";
 initAsChild(document.getElementById("your-console-container-id"));
 ```
 A library for overwriting the default console and converting data to HTML elements. 
+
+## Wrapper
+```javascript
+import { addWrapper, wrap } from "./path/to/web-libs/console/console.js";
+```

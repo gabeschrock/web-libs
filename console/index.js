@@ -29,7 +29,7 @@ let object = {
 };
 object.self = object;
 log(object);
-log("Objects will update upon expandi!ng.")
+log("Objects will update upon expand!ng.")
 object = {
     counter: 0,
     get clickMe() {
