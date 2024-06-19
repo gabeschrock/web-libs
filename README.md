@@ -4,8 +4,6 @@
 
 This is a collection of JavaScript libraries for the web. 
 
-Well, there's only one at the moment, but it *will* be a collection.
-
 **Demo**: View on [Github Pages](https://gabeschrock.github.io/web-libs/) or host locally by cloning into `web-libs` and running `web-libs/node-server.js`
 
 ## Console - `/console`
