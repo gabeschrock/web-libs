@@ -4,8 +4,6 @@
 
 This is a collection of JavaScript libraries for the web. 
 
-Well, there's only one at the moment, but it *will* be a collection.
-
 **Demo**: View on [Github Pages](https://gabeschrock.github.io/web-libs/)
 
 ## Console - `/console`
@@ -16,10 +14,10 @@ init(document.getElementById("your-console-id"));
 ```javascript
 import { initAsChild } from "./path/to/web-libs/console/console.js";
 initAsChild(document.getElementById("your-console-container-id"));
-```
+``````
 A library for overwriting the default console and converting data to HTML elements. 
 
-## Wrapper
+## Wrapper - `/wrapper`
 ```javascript
 import { addWrapper, wrap } from "./path/to/web-libs/console/console.js";
 ```
