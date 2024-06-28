@@ -13,9 +13,9 @@ export class ConsoleInitError extends Error {
     }
 }
 
-let originalConsole = window.console;
+let originalConsole = {...window.console};
 
-let console = {
+let newConsole = {
     log(...data) {
         for (const [index, item] of data.entries()) {
             let elem = dataToElement(item);
@@ -34,7 +34,8 @@ export function init(consoleInit) {
     }
     consoleElement = consoleInit;
     window.originalConsole = originalConsole;
-    window.console = console;
+    Object.assign(window.console, newConsole);
+    return consoleInit;
 }
 
 export function initAsChild(parentElement) {
@@ -44,4 +45,5 @@ export function initAsChild(parentElement) {
     let pre = document.createElement("pre");
     parentElement.appendChild(pre);
     init(pre);
+    return pre;
 }
